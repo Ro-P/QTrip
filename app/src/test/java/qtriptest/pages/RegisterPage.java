@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class RegisterPage {
     WebDriver driver;
@@ -40,8 +41,18 @@ public class RegisterPage {
             userName = userName + UUID.randomUUID().toString();
 
         last_generated_user_name = userName;
+        // if(Character.isUpperCase(userName.charAt(0))){
+        //     Actions a = new Actions(driver);
+        //     a.moveToElement(email_address_textbox).
+        //     click().keyDown(Keys.SHIFT).sendKeys(userName).
+        //     build().perform();
 
-        email_address_textbox.sendKeys(userName);
+        // }
+        email_address_textbox.clear();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].value = arguments[1];", email_address_textbox,userName);
+        
+        //email_address_textbox.sendKeys(userName);
         password_textbox.sendKeys(password);
         confirm_password_textbox.sendKeys(confirmPassword);
         register_button.click();
