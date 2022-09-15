@@ -1,3 +1,5 @@
+# CRIO_SOLUTION_START_MODULE_CREATE_TESTNG
+# CRIO_SOLUTION_END_MODULE_CREATE_TESTNG
 import lxml.etree
 import os
 import sys
