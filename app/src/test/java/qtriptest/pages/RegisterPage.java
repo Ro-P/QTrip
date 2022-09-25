@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.UUID;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,8 +32,9 @@ public class RegisterPage {
     }
 
     public void navigateToRegisterPage(){
-        if(!driver.getCurrentUrl().equals(url))
-            driver.get(url);
+        SeleniumWrapper.navigate(driver,url);
+        // if(!driver.getCurrentUrl().equals(url))
+        //     driver.get(url);
         
     }
 
@@ -41,21 +43,15 @@ public class RegisterPage {
             userName = userName + UUID.randomUUID().toString();
 
         last_generated_user_name = userName;
-        // if(Character.isUpperCase(userName.charAt(0))){
-        //     Actions a = new Actions(driver);
-        //     a.moveToElement(email_address_textbox).
-        //     click().keyDown(Keys.SHIFT).sendKeys(userName).
-        //     build().perform();
 
-        // }
-        email_address_textbox.clear();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].value = arguments[1];", email_address_textbox,userName);
-        
+        SeleniumWrapper.sendKeys(email_address_textbox,userName);
+        SeleniumWrapper.sendKeys(password_textbox,password);
+        SeleniumWrapper.sendKeys(confirm_password_textbox,confirmPassword);
+        SeleniumWrapper.click(register_button, driver);
         //email_address_textbox.sendKeys(userName);
-        password_textbox.sendKeys(password);
-        confirm_password_textbox.sendKeys(confirmPassword);
-        register_button.click();
+        // password_textbox.sendKeys(password);
+        // confirm_password_textbox.sendKeys(confirmPassword);
+        // register_button.click();
 
         // WebDriverWait wait = new WebDriverWait(driver,30);
         // wait.until(ExpectedConditions.urlToBe("https://qtripdynamic-qa-frontend.vercel.app/pages/login/"));

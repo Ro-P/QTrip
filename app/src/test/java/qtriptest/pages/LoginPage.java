@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,17 +28,20 @@ public class LoginPage {
     }
 
     public void navigateToRegisterPage(){
-        if(!driver.getCurrentUrl().equals(url))
-            driver.get(url);
+        SeleniumWrapper.navigate(driver, url);
+        // if(!driver.getCurrentUrl().equals(url))
+        //     driver.get(url);
         
     }
 
     public void performLogin(String userName,String password){
        
-        email_address_textbox.sendKeys(userName);
-        password_textbox.sendKeys(password);
-        register_button.click();
-
+        // email_address_textbox.sendKeys(userName);
+        // password_textbox.sendKeys(password);
+        // register_button.click();
+        SeleniumWrapper.sendKeys(email_address_textbox, userName);
+        SeleniumWrapper.sendKeys(password_textbox, password);
+        SeleniumWrapper.click(register_button, driver);
         WebDriverWait wait = new WebDriverWait(driver,30);
         wait.until(ExpectedConditions.urlToBe("https://qtripdynamic-qa-frontend.vercel.app/"));
 

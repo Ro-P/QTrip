@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
@@ -33,8 +34,8 @@ public class AdventurePage {
   }
 
   public void navigateToAdventurePage(String cityname){
-     String url = "https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/?city=" + cityname.toLowerCase();
-     driver.get(url);
+    //  String url = "https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/?city=" + cityname.toLowerCase();
+    //  driver.get(url);
   }
 
   public void setFilterValue(String noOfHours){
@@ -43,7 +44,8 @@ public class AdventurePage {
   }
 
   public void clearFilterValue(){
-       clear_duration.click();
+       SeleniumWrapper.click(clear_duration, driver);
+      // clear_duration.click();
        WebDriverWait wait = new WebDriverWait(driver,30);
        wait.until(ExpectedConditions.visibilityOfAllElements(result_displayed));
   }
@@ -54,13 +56,14 @@ public class AdventurePage {
   }
 
   public void clearCategoryFilter(){
-    clear_category.click();
+    SeleniumWrapper.click(clear_category, driver);
+    //clear_category.click();
     WebDriverWait wait = new WebDriverWait(driver,30);
     wait.until(ExpectedConditions.visibilityOfAllElements(result_displayed));
   }
 
   public int getResultCount(){
-    WebDriverWait wait = new WebDriverWait(driver,30);
+    WebDriverWait wait = new WebDriverWait(driver,40);
     wait.until(ExpectedConditions.visibilityOfAllElements(result_displayed));
      return result_displayed.size();
   }
@@ -70,7 +73,8 @@ public class AdventurePage {
     // wait.until(ExpectedConditions.visibilityOfAllElements(adventure_list));
      for(int i=0;i<adventure_list.size();i++){
         if(adventure_list.get(i).getText().equals(adventureName)){
-        adventure_list.get(i).click();
+          SeleniumWrapper.click(adventure_list.get(i), driver);
+       // adventure_list.get(i).click();
         return;
       }
      }

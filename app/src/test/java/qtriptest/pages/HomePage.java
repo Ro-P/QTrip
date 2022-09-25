@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,13 +39,15 @@ public class HomePage {
     }
 
     public void navigateToHomePage(){
-        if(!driver.getCurrentUrl().equals(url))
-        driver.get(url);
+        // if(!driver.getCurrentUrl().equals(url))
+        // driver.get(url);
+        SeleniumWrapper.navigate(driver, url);
     }
     
     //Click on register button
     public void clickOnRegister(){
-        register_button.click();
+        SeleniumWrapper.click(register_button, driver);
+      //  register_button.click();
         WebDriverWait wait = new WebDriverWait(driver,30);
         wait.until(ExpectedConditions.urlToBe("https://qtripdynamic-qa-frontend.vercel.app/pages/register/"));
     }
@@ -60,15 +63,17 @@ public class HomePage {
 
     //Logout user
     public void logoutUser(){
-        logout_button.click();
+        SeleniumWrapper.click(logout_button, driver);
+        //logout_button.click();
     }
     
     //Search city
     public void searchCity(String cityName){
          WebDriverWait wait = new WebDriverWait(driver,30);
          wait.until(ExpectedConditions.visibilityOfAllElements(city_list));
-         search_textbox.clear();
-         search_textbox.sendKeys(cityName);
+         SeleniumWrapper.sendKeys(search_textbox,cityName);
+        //  search_textbox.clear();
+        //  search_textbox.sendKeys(cityName);
     }
 
     //verify autocomplete 
@@ -84,7 +89,8 @@ public class HomePage {
     public void selectCity(String cityName){
         // WebDriverWait wait = new WebDriverWait(driver,30);
         // wait.until(ExpectedConditions.visibilityOf(auto_complete_text));
-        auto_complete_text.click();
+        SeleniumWrapper.click(auto_complete_text, driver);
+        //auto_complete_text.click();
     }
 
     //No city found

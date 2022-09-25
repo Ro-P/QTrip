@@ -9,6 +9,7 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import qtriptest.SeleniumWrapper;
 import java.util.concurrent.TimeUnit;
 
 public class AdventureDetailsPage {
@@ -45,17 +46,15 @@ public class AdventureDetailsPage {
    
 
     public void bookAdventure(String userName,String date,int noOfPerson)throws InterruptedException{
-      
-        name_textbox.sendKeys(userName);
-        date_textbox.sendKeys(date);
-    //   Thread.sleep(2000);
-    //   JavascriptExecutor jse= (JavascriptExecutor)driver;
-	// 	String script= "arguments[0].setAttribute('value','"+date+"');";
-	// 	jse.executeScript(script, driver.findElement(By.xpath("//input[@name='date']")));
-    //     Thread.sleep(2000);
-        person_textbox.clear();
-        person_textbox.sendKeys(noOfPerson+"");
-        reserve_button.click();
+        SeleniumWrapper.sendKeys(name_textbox, userName);
+        SeleniumWrapper.sendKeys(date_textbox, date);
+        SeleniumWrapper.sendKeys(person_textbox, noOfPerson+"");
+        SeleniumWrapper.click(reserve_button, driver);
+        // name_textbox.sendKeys(userName);
+        // date_textbox.sendKeys(date);
+        // person_textbox.clear();
+        // person_textbox.sendKeys(noOfPerson+"");
+        //reserve_button.click();
         count++;
         //return count;
 

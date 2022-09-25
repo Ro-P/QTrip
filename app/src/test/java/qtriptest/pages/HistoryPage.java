@@ -1,6 +1,6 @@
-
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
@@ -32,14 +32,14 @@ public class HistoryPage {
    }
 
    public void navigateToHistoryPage(){
-
-     try{ 
-      driver.get(url);
-      Thread.sleep(5000);
-      driver.switchTo().alert().accept();
-      }catch(Exception e){
-        System.out.println("alert not present");
-      }
+      SeleniumWrapper.navigate(driver, url);
+   //   try{ 
+   //    driver.get(url);
+   //    Thread.sleep(5000);
+   //    driver.switchTo().alert().accept();
+   //    }catch(Exception e){
+   //      System.out.println("alert not present");
+   //    }
 
    }
 
@@ -52,8 +52,10 @@ public class HistoryPage {
    public void cancelReservations(String transactionId){
        for(int i=0;i<list_transaction_id.size();i++){
          if(list_transaction_id.get(i).getText().equals(transactionId)){
-            WebElement trans_id=driver.findElement(By.xpath("//tbody[@id='reservation-table']/tr["+(i+1)+"]//td[8]"));
-            trans_id.click();
+            WebElement trans_id = SeleniumWrapper.findElementWithRetry(driver, By.xpath("//tbody[@id='reservation-table']/tr["+(i+1)+"]//td[8]"), 1);
+           SeleniumWrapper.click(trans_id, driver);
+            //WebElement trans_id=driver.findElement(By.xpath("//tbody[@id='reservation-table']/tr["+(i+1)+"]//td[8]"));
+           // trans_id.click();
             return ;
          }
        }
